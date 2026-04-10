@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Thermometer - 2026-04-10</title>
+<style>
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7f7f5;
+  --bg-tertiary: #f0f0ed;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b6b6b;
+  --text-tertiary: #9b9b9b;
+  --border: rgba(0,0,0,0.08);
+  --border-hover: rgba(0,0,0,0.15);
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1e1e1e;
+    --bg-secondary: #2a2a2a;
+    --bg-tertiary: #333333;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --text-tertiary: #707070;
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(255,255,255,0.15);
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); color: var(--text-primary); background: var(--bg-tertiary); padding: 2rem; line-height: 1.6; }
+.container { max-width: 960px; margin: 0 auto; }
+h1 { font-size: 24px; font-weight: 600; margin-bottom: 6px; }
+.subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 1.5rem; }
+.stats-row { display: flex; gap: 12px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.stat { background: var(--bg-primary); border-radius: var(--radius-md); padding: 0.75rem 1rem; flex: 1; min-width: 100px; border: 0.5px solid var(--border); }
+.stat-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 2px; }
+.stat-val { font-size: 22px; font-weight: 600; }
+.summary-card { background: var(--bg-primary); border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 1.5rem; font-size: 14px; color: var(--text-secondary); border: 0.5px solid var(--border); }
+.legend { display: flex; gap: 16px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+.dim-card { background: var(--bg-primary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; position: relative; overflow: hidden; }
+.dim-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+.dim-card.greedy::before { background: #D85A30; }
+.dim-card.neutral::before { background: #888780; }
+.dim-card.fearful::before { background: #378ADD; }
+.dim-card.nodata::before { background: var(--border-hover); }
+.dim-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.dim-name { font-size: 14px; font-weight: 500; }
+.dim-badge { font-size: 11px; padding: 2px 8px; border-radius: var(--radius-md); font-weight: 500; }
+.greedy .dim-badge { background: #FAECE7; color: #712B13; }
+.neutral .dim-badge { background: #F1EFE8; color: #444441; }
+.fearful .dim-badge { background: #E6F1FB; color: #0C447C; }
+.nodata .dim-badge { background: var(--bg-secondary); color: var(--text-tertiary); }
+@media (prefers-color-scheme: dark) {
+  .greedy .dim-badge { background: #4A1B0C; color: #F0997B; }
+  .neutral .dim-badge { background: #2C2C2A; color: #B4B2A9; }
+  .fearful .dim-badge { background: #042C53; color: #85B7EB; }
+  .nodata .dim-badge { background: var(--bg-secondary); color: var(--text-tertiary); }
+}
+.evidence { list-style: none; padding: 0; }
+.evidence li { font-size: 12px; color: var(--text-secondary); line-height: 1.55; padding: 3px 0; border-top: 0.5px solid var(--border); }
+.evidence li:first-child { border-top: none; }
+.section-title { font-size: 18px; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+.warn-block { background: var(--bg-primary); border-radius: var(--radius-md); padding: 0.75rem 1rem; font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 8px; border: 0.5px solid var(--border); }
+.warn-label { font-weight: 600; color: var(--text-primary); margin-right: 4px; }
+@media print {
+  body { background: white; padding: 1rem; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Market thermometer - 2026-04-10</h1>
+<p class="subtitle">Howard Marks cycle positioning dashboard</p>
+
+<div class="stats-row">
+<div class="stat"><div class="stat-label">Greedy</div><div class="stat-val" style="color:#D85A30">7</div></div>
+<div class="stat"><div class="stat-label">Neutral</div><div class="stat-val" style="color:#888780">5</div></div>
+<div class="stat"><div class="stat-label">Fearful</div><div class="stat-val" style="color:#378ADD">0</div></div>
+<div class="stat"><div class="stat-label">Insufficient data</div><div class="stat-val">4</div></div>
+</div>
+
+<div class="summary-card">当前市场呈现混合信号：估值与信用利差指向热端拥挤，但情绪数据因技术性缺失大面积不可用，多个维度无法完成独立定位。</div>
+
+<div class="legend">
+<div class="legend-item"><div class="legend-dot" style="background:#D85A30"></div>Greedy</div>
+<div class="legend-item"><div class="legend-dot" style="background:#888780"></div>Neutral</div>
+<div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div>Fearful</div>
+<div class="legend-item"><div class="legend-dot" style="background:#aaa"></div>Insufficient data</div>
+</div>
+
+<div class="grid">
+<div class="dim-card neutral">
+<div class="dim-header"><span class="dim-name">Economy outlook</span><span class="dim-badge">Neutral</span></div>
+<ul class="evidence"><li>GDP 同比增速 1.99%，处于正增长但低于趋势水平（美国长期均值约 2-2.5%），不构成&quot;强劲&quot;也不构成&quot;疲软&quot;；数据更新日期 2025-10-01，属季度低频数据，当前仍有效但存在滞后。</li>
+<li>失业率 4.3%，处于历史中性区间（非极低亦非明显恶化）；同为低频数据。</li>
+<li>未提供对比样本，无法判断趋势方向。</li></ul>
+</div><div class="dim-card greedy">
+<div class="dim-header"><span class="dim-name">Lenders</span><span class="dim-badge">Greedy</span></div>
+<ul class="evidence"><li>HY OAS 2.94%，显著低于历史均值约 4-5%，表明信用市场对高收益债务的风险补偿要求偏低，贷款人参与意愿偏积极。</li>
+<li>HYG 成交量相对均值比率 0.68，低于 1.0，显示信用 ETF 交易量偏低——在利差已经压缩的背景下，这反映的是市场平静而非撤退。</li>
+<li>未提供对比样本，无法判断趋势方向。注意：当前数据集无法直接衡量贷款人意愿，以上为代理信号，与 Capital/Terms 维度存在高度相关性，不构成独立确认。</li></ul>
+</div><div class="dim-card greedy">
+<div class="dim-header"><span class="dim-name">Capital</span><span class="dim-badge">Greedy</span></div>
+<ul class="evidence"><li>收益率曲线斜率 T10Y2Y 为 +0.51%，曲线正斜率表明短端利率低于长端，资本供给未处于紧缩状态。</li>
+<li>10 年期国债收益率 4.29%、2 年期 3.79%，绝对水平处于中等偏高区间，但曲线未倒挂，资本环境整体偏宽松。</li>
+<li>未提供对比样本，无法判断趋势方向。注意：以上为代理信号，当前数据集无法直接衡量资本供给量。</li></ul>
+</div><div class="dim-card greedy">
+<div class="dim-header"><span class="dim-name">Terms</span><span class="dim-badge">Greedy</span></div>
+<ul class="evidence"><li>HY OAS 2.94%，显著低于历史中位数（约 4-5%），偏差幅度超过 100bp，代理信号指向融资条款偏宽松。</li>
+<li>IG OAS 0.83%，投资级利差处于历史低位区间，进一步印证信用市场条款环境偏宽。</li>
+<li>未提供对比样本，无法判断趋势方向。注意：以上为代理信号，与 Lenders/Capital 维度高度相关。</li></ul>
+</div><div class="dim-card neutral">
+<div class="dim-header"><span class="dim-name">Interest rates</span><span class="dim-badge">Neutral</span></div>
+<ul class="evidence"><li>联邦基金利率 3.64%，低于 2023-2024 高峰期（约 5.25-5.50%），但远高于零利率时代，处于中性偏上区间。</li>
+<li>10 年期收益率 4.29%，2 年期 3.79%，绝对水平既非历史低位也非极端高位。</li>
+<li>未提供对比样本，无法判断趋势方向。</li></ul>
+</div><div class="dim-card greedy">
+<div class="dim-header"><span class="dim-name">Spreads</span><span class="dim-badge">Greedy</span></div>
+<ul class="evidence"><li>HY OAS 2.94%，显著低于历史均值（约 4-5%），高收益利差处于压缩状态，指向热端（窄利差）。</li>
+<li>IG OAS 0.83%，投资级利差同样偏低，信用市场整体定价风险补偿不高。</li>
+<li>未提供对比样本，无法判断趋势方向。</li></ul>
+</div><div class="dim-card nodata">
+<div class="dim-header"><span class="dim-name">Investors</span><span class="dim-badge">Insufficient data</span></div>
+<ul class="evidence"><li>VIX、VIX 1 年分位数、SPY Put/Call Ratio 三项核心情绪指标均为 null，属技术性缺失（已列入 failed_fields）。</li>
+<li>CNN Fear &amp; Greed 指数 36.1，标签&quot;fear&quot;，为当前唯一可用情绪证据。</li>
+<li>根据降级硬规则，4 项核心情绪证据中仅 1 项可用（CNN Fear &amp; Greed），未达到最低 2 条门槛，必须输出&quot;数据不足&quot;。Recent performance 不能补足该门槛。</li></ul>
+</div><div class="dim-card neutral">
+<div class="dim-header"><span class="dim-name">Asset owners</span><span class="dim-badge">Neutral</span></div>
+<ul class="evidence"><li>CNN Fear &amp; Greed 36.1（fear 区间），情绪偏谨慎，但未达到极端恐慌水平。</li>
+<li>S&amp;P 500 距 52 周高点仅 -2.21%，资产持有者尚未出现大规模离场迹象。</li>
+<li>未提供对比样本，无法判断趋势方向。</li></ul>
+</div><div class="dim-card neutral">
+<div class="dim-header"><span class="dim-name">Sellers</span><span class="dim-badge">Neutral</span></div>
+<ul class="evidence"><li>S&amp;P 500 距 52 周高点 -2.21%，回撤幅度极小，不符合&quot;大量卖家涌出&quot;的冷端特征。</li>
+<li>CNN Fear &amp; Greed 36.1 处于 fear 区间，情绪偏冷但未至恐慌性抛售程度，卖压与买压处于相对平衡。</li>
+<li>未提供对比样本，无法判断趋势方向。</li></ul>
+</div><div class="dim-card neutral">
+<div class="dim-header"><span class="dim-name">Markets</span><span class="dim-badge">Neutral</span></div>
+<ul class="evidence"><li>CNN Fear &amp; Greed 36.1（fear），市场关注度与情绪未处于狂热拥挤状态。</li>
+<li>S&amp;P 500 1 年回报 34.81%，强劲表现维持了市场参与度，未出现&quot;无人问津&quot;的冷端特征。</li>
+<li>Market breadth 全部字段为空，属结构性缺失；当前定位基于有限代理信号（CNN Fear &amp; Greed + recent performance），不具备完整市场广度判断基础。</li></ul>
+</div><div class="dim-card nodata">
+<div class="dim-header"><span class="dim-name">Funds</span><span class="dim-badge">Insufficient data</span></div>
+<ul class="evidence"><li>qualitative_dimensions.funds_environment 值为&quot;数据不足&quot;，属人工定性维度，JSON 未提供人工判断，不得自行推断。</li></ul>
+</div><div class="dim-card greedy">
+<div class="dim-header"><span class="dim-name">Recent performance</span><span class="dim-badge">Greedy</span></div>
+<ul class="evidence"><li>S&amp;P 500 1 年回报 34.81%，显著高于历史年均水平（约 10%），属强劲表现，指向热端。</li>
+<li>S&amp;P 500 6 个月回报 1.64%、1 个月回报 0.64%，短期表现正但不极端；3 个月回报 -1.39%，显示中期有小幅回调，但不改变 1 年维度的强劲定性。</li>
+<li>未提供对比样本，无法判断趋势方向。</li></ul>
+</div><div class="dim-card greedy">
+<div class="dim-header"><span class="dim-name">Asset prices</span><span class="dim-badge">Greedy</span></div>
+<ul class="evidence"><li>Shiller PE 39.38，是历史中位数 16.05 的 2.45 倍，处于显著偏高区间。</li>
+<li>Buffett Indicator 298.2%，远超历史正常水平（约 100-120%），指向资产价格极端偏高。</li>
+<li>S&amp;P 500 当前 6824.66，距 52 周高点仅 -2.21%，价格接近周期高位。未提供对比样本，无法判断趋势方向。</li></ul>
+</div><div class="dim-card greedy">
+<div class="dim-header"><span class="dim-name">Prospective returns</span><span class="dim-badge">Greedy</span></div>
+<ul class="evidence"><li>Equity Risk Premium -1.75%，为负值，意味着股票预期回报低于无风险利率，前瞻回报空间极为有限，指向热端（低 prospective returns = 偏贪婪）。</li>
+<li>Shiller PE 39.38，为历史中位数 16.05 的 2.45 倍，高估值压缩未来回报空间。</li>
+<li>Buffett Indicator 298.2%，极端偏高，进一步压缩长期回报预期。未提供对比样本，无法判断趋势方向。</li></ul>
+</div><div class="dim-card nodata">
+<div class="dim-header"><span class="dim-name">Risk</span><span class="dim-badge">Insufficient data</span></div>
+<ul class="evidence"><li>VIX 与 VIX 1 年分位数均为 null（技术性缺失），无法判断市场对风险的定价态度。</li>
+<li>HY OAS 2.94% 与 IG OAS 0.83% 偏低，利差信号指向市场正在低估风险（偏贪婪方向），但该证据已在 Spreads/Lenders/Terms 维度使用，单独用于 Risk 维度证据独立性不足。</li>
+<li>CNN Fear &amp; Greed 36.1 处于 fear 区间，与利差信号方向矛盾（冲突型迷雾）。核心风险定价指标（VIX）缺失叠加信号冲突，无法形成单向定位。</li></ul>
+</div><div class="dim-card nodata">
+<div class="dim-header"><span class="dim-name">Popular qualities</span><span class="dim-badge">Insufficient data</span></div>
+<ul class="evidence"><li>qualitative_dimensions.popular_vs_right_qualities 值为&quot;数据不足&quot;，属人工定性维度，JSON 未提供人工判断，不得自行推断。</li></ul>
+</div>
+</div>
+
+<div class="section-title">Key changes</div>
+<div class="summary-card">未提供对比样本，无法判断方向变化。</div>
+
+<div class="section-title">Data quality warnings</div>
+<div class="warn-block"><span class="warn-label">Technical failure:</span> 技术性缺失：vix、vix_percentile_1y、spy_put_call_ratio 三项抓取失败（列入 failed_fields），直接导致 Investors 维度降级为&quot;数据不足&quot;，并削弱 Risk 维度判断基础。</div><div class="warn-block"><span class="warn-label">Structural gap:</span> 结构性缺失：market_breadth 全部 5 个字段为 null，当前数据架构无免费数据源支持该模块；Markets 维度定位基于有限代理信号。</div><div class="warn-block"><span class="warn-label">Manual input needed:</span> 人工定性缺失：funds_environment、popular_vs_right_qualities 均为&quot;数据不足&quot;占位，需总司令人工输入。</div><div class="warn-block"><span class="warn-label">Stale data:</span> 低频数据时效：economy_outlook 数据更新日期为 2025-10-01，距报告日约 6 个月，GDP 与失业率为季度/月度指标，当前值仍可用于定位但存在滞后风险。</div>
+
+</div>
+</body>
+</html>
